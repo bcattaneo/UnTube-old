@@ -1,23 +1,19 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://untube/content/overlay.css" type="text/css"?>
 <overlay id="untube" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script src="overlay.js"/>
-	<statusbar id="status-bar">
-		<!--<statusbarpanel id="untube-loaded" label="UnTube" tooltiptext="UnTube loaded!"/>-->
-		<image id="untube-icon" src="chrome://untube/skin/untube16.png" tooltiptext="UnTube loaded!"/>
-	</statusbar>
 	<menupopup id="menu_ToolsPopup">
 		<menu id="untube-menu" label="UnTube"
 			class="menu-iconic"
-			image='chrome://untube/skin/untube16.png'
-			insertafter="javascriptConsole,devToolsSeparator">
+			image='chrome://untube/skin/untube16.png'>
 			<menupopup>
+				<menuitem id="untube-lock" label="Deactivate"
+				oncommand="UnTube.onLock(event);"/>
+				<menuseparator />
 				<menuitem id="untube-changelog" label="ChangeLog"
 				oncommand="UnTube.onChangeLog(event);"/>
-				<menuseparator />
 				<menuitem id="untube-sud0" label="sud0's profile"
 				oncommand="UnTube.onsud0(event);"/>
 			</menupopup>
 		</menu>
-	</menupopup> 
+	</menupopup>
 </overlay>

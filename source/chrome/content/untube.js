@@ -1,13 +1,31 @@
-var myExtension = {
+var myUnTube = {
 	init: function() {
-	if(gBrowser) gBrowser.addEventListener("DOMContentLoaded", this.onPageLoad, false);
+		var pref_check = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+		var gLock = 0;
+		var cLock = top.document.getElementById("untube-lock");
+		if (pref_check.prefHasUserValue("extensions.untube.lock")) {
+			gLock = pref_check.getIntPref("extensions.untube.lock");
+			if (gLock == 1) {
+				cLock.label = "Deactivate";
+			}
+			else {
+				cLock.label = "Activate";
+			}
+		}
+		else {
+			pref_check.setIntPref("extensions.untube.lock", 1);
+			cLock.label = "Deactivate";
+		}
+		if(gBrowser) gBrowser.addEventListener("DOMContentLoaded", this.onPageLoad, false);
 	},
 	onPageLoad: function(aEvent) {
-	var doc = aEvent.originalTarget;
-	var win = doc.defaultView;
-	if (win != win.top) return; //only top window.
-		// Fetch URL
-		// Credits to Mustafa Yüceel and Chris Zarate
+		var tLock = top.document.getElementById("untube-lock");
+		if (tLock.label == "Activate") return;
+		var doc = aEvent.originalTarget;
+		var win = doc.defaultView;
+		if (win != win.top) return;
+		// Fetch domain
+		// Credits to Mustafa Yüceel and Chris Zarate.
 		var s;
 		var host = doc.location.href;
 		host=host.replace('http:\/\/','');
@@ -32,16 +50,16 @@ var myExtension = {
 		if(s.indexOf("youtube") !== -1) {
 			var nodeList = doc.querySelectorAll(".watch-sidebar-body");
 			for (var i = 0, length = nodeList.length; i < length; i++) {
-				nodeList[i].innerHTML = "<a href=\"http://addons.mozilla.org/es/firefox/user/6742344\" target=\"_blank\"><img src=\"http://i.imgur.com/pAtgc.png\"></a>";
+				nodeList[i].innerHTML = "<div style=\"font-size: 25px;float:left;margin-top:2px;margin-left: 7px\"><strong>Un</strong></div><div style=\"background:no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-vflMCg1ne.png) -63px -51px;width:49px;height:30px;margin-left: 40px\"></div>";
 			}
 			var nodeList = doc.querySelectorAll(".watch-sidebar-foot");
 			for (var i = 0, length = nodeList.length; i < length; i++) {
-				nodeList[i].innerHTML = "Hiding YouTube's addictive suggestions.";
+				nodeList[i].innerHTML = "<div style=\"margin-left: 5px;margin-top: 10px\">Hiding YouTube's addictive suggestions.</div>";
 			}
 		}
 	}
 }
 window.addEventListener("load", function load(event){
 	window.removeEventListener("load", load, false);
-	myExtension.init(); 
+	myUnTube.init(); 
 },false);
