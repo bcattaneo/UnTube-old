@@ -9,9 +9,7 @@
 				<menuitem id="untube-lock" label="Deactivate"
 				oncommand="UnTube.onLock(event);"/>
 				<menuseparator />
-				<menuitem id="untube-changelog" label="ChangeLog"
-				oncommand="UnTube.onChangeLog(event);"/>
-				<menuitem id="untube-sud0" label="sud0's profile"
+				<menuitem id="untube-sud0" label="Developer profile"
 				oncommand="UnTube.onsud0(event);"/>
 			</menupopup>
 		</menu>
